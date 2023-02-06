@@ -11,24 +11,9 @@ def f1_model_score(estimator, X, y):
     return f1_score(y, y_hat)
 
 
-random_state = 109
+random_state = 109 # Randomly generated number 1-1000
 
 xgb_base_model = XGBClassifier(n_estimators=10, max_depth=3, n_jobs=-1, random_state=random_state)
-#xgb_search_params = {'estimator': XGBClassifier(n_jobs=-1, random_state=random_state),
-#                     'search_spaces': {'n_estimators': Integer(10, 200, 'uniform'),
-#                                       'max_depth': np.arange(1, 12, 2),
-#                                       'learning_rate': Real(0.001, 1, 'log-uniform'),
-#                                       'colsample_bytree': Real(0.1, 1, 'uniform'),
-#                                       'colsample_bylevel': Real(0.1, 1, 'uniform'),
-#                                       'colsample_bynode': Real(0.1, 1, 'uniform'),
-#                                       'min_child_weight': Real(0, 20, 'uniform'),
-#                                       'gamma': Real(0, 20, 'uniform'),
-#                                       'reg_alpha': Real(0.001, 10, 'log-uniform'),
-#                                       'reg_lambda': Real(0.001, 10, 'log-uniform')},
-#                     'n_iter': 60,
-#                     'scoring': 'f1',
-#                     'refit': True,
-#                     'random_state': random_state}
 xgb_search_params = {'estimator': XGBClassifier(n_jobs=-1, random_state=random_state),
                      'search_spaces': {'n_estimators': Integer(10, 100, 'uniform'),
                                        'max_depth': np.arange(1, 12, 2),
