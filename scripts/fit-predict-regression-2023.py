@@ -107,13 +107,6 @@ def main():
             X_train = (X_train-feature_means)/feature_stds
             X_test = (X_test-feature_means)/feature_stds
             
-        #np.save('./reg_data_011623/followup/feature_means.npy', feature_means)
-        #np.save('./reg_data_011623/followup/feature_stds.npy', feature_stds)
-        #np.savez('./reg_data_011623/{}/{}_train.npz'.format(mode, patient),\
-        #         x=np.array(X_train), y=np.array(y_train))
-        #np.savez('./reg_data_011623/{}/{}_test.npz'.format(mode, patient),\
-        #         x=np.array(X_test), y=np.array(y_test))        
-        
         if paramsearch:
             if model_type == 'xgb':
                 search_params = xgb_search_params
