@@ -11,7 +11,6 @@ def r2_model_score(estimator, X, y):
     return r2_score(y, y_hat)
 
 
-#random_state = 331 # test result stability
 random_state = 874 # randomly generated number 1-1000
 
 
