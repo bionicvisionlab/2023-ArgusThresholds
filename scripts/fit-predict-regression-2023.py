@@ -12,7 +12,7 @@ import pandas as pd
 import warnings
 import pickle
 from skopt import BayesSearchCV, dump, load
-from search_params import xgb_base_model, xgb_search_params, elasticnet_base_model, elasticnet_search_params
+from search_params_regression import xgb_base_model, xgb_search_params, elasticnet_base_model, elasticnet_search_params
 import argus_thresholds as arth
 
 parser = argparse.ArgumentParser()
