@@ -12,6 +12,7 @@ sys.path.append('..')
 sys.path.append('../scripts')
 import argus_thresholds as arth
 import scripts.search_params
+from analysis_utils import subjects, feature_renaming
 
 
 def find_model_fname(patient, artifact_dir):
@@ -91,40 +92,6 @@ def get_shap_vals(patients, artifact_dir, data_dir, feature_names=None):
         shap_vals.data = np.vstack([shap_vals.data, shap_all[i].data])
     return shap_vals
 
-# Feature names to use in the Shap plots
-feature_renaming = {'SubjectAge (days)': 'SubjectAge',
-                    'SubjectTimeBlind (days)': 'SubjectTimeBlind',
-                    'SubjectAgeAtDiagnosis (years)': 'SubjectAgeAtDiagnosis',
-                    'SubjectAgeAtSurgery (years)': 'SubjectAgeAtSurgery',
-                    'SubjectTimePostOp (days)': 'ImplantTime',
-                    'Impedance (kΩ)': 'Impedance',
-                    'ImpedanceCV (std/mu)': 'ImpedanceCV',
-                    'ElectrodeLocRho (µm)': 'ElectrodeLocRho',
-                    'ElectrodeLocTheta (rad)': 'ElectrodeLocTheta',
-                    'ImplantMeanLocRho (µm)': 'ImplantMeanLocRho',
-                    'ImplantMeanLocTheta (rad)': 'ImplantMeanLocTheta',
-                    'ImplantMeanRot (rad)': 'ImplantMeanRot',
-                    'OpticDiscLocX (µm)': 'OpticDiscLocX',
-                    'OpticDiscLocY (µm)': 'OpticDiscLocY',
-                    'RGCDensity (cells/deg2)': 'RGCDensity',
-                    'Impedances2Thresholds (µA)': 'Impedances2Thresholds',
-                    'Impedances2Height (µm)': 'Impedances2Height',
-                    'Impedances2Heights2Thresholds (µA)': 'Impedances2Heights2Thresholds',
-                    'FirstImpedance (kΩ)': 'FirstImpedance',
-                    'FirstThresholds (µA)': 'FirstThresholds',
-                    'FirstMaxCurrent (µA)': 'FirstMaxCurrent',
-                    'FirstChargeDensityLimit (mC/cm2)': 'FirstChargeDensityLimit',
-                    'FirstElectrodesDead (frac)': 'FirstDeactivationRate',
-                    'FirstFalsePositiveRate': 'FirstFalsePositiveRate',
-                    'TimeSinceFirstMeasurement (days)': 'TimeSinceFirstMeasurement',
-                    'LastImpedance (kΩ)': 'LastImpedance',
-                    'LastThresholds (µA)': 'LastThresholds',
-                    'TimeSinceLastElectrodeMeasurement (days)': 'TimeSinceLastMeasurement'}
-
-patients = ['12-001', '12-004', '12-005', '14-001', \
-            '17-002', '51-001', '51-003', '51-009', \
-            '52-001', '52-003', '61-004', '71-002']
-
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--mode', \
@@ -156,7 +123,7 @@ if __name__ == '__main__':
     feature_names = arth.get_feat_cols(mode)
     feature_names = [feature_renaming[feat_name] for feat_name in feature_names]
 
-    shap_vals = get_shap_vals(patients, artifact_dir, data_dir, feature_names=feature_names)
+    shap_vals = get_shap_vals(subjects, artifact_dir, data_dir, feature_names=feature_names)
 
     use_log_scale = True
     if np.max(np.abs(shap_vals.values.flatten())) < 20:
