@@ -1,58 +1,72 @@
-[![Build Status](https://github.com/pulse2percept/pulse2percept/workflows/build/badge.svg)](https://github.com/pulse2percept/pulse2percept/actions)
-[![Coverage Status](https://coveralls.io/repos/github/bionicvisionlab/ArgusThresholds/badge.svg?branch=master)](https://coveralls.io/github/bionicvisionlab/ArgusThresholds?branch=master)
-
-
 ## ArgusThresholds
 
 Predicting Argus II thresholds from a variety of clinical and physiological factors.
 
-To provide appropriate levels of stimulation, retinal prostheses must be calibrated to an individual's
-perceptual thresholds, despite thresholds varying drastically across subjects, across electrodes within a
-subject, and over time.
+To provide appropriate levels of stimulation, retinal prostheses must be calibrated to an individual’s
+perceptual thresholds, despite thresholds varying drastically across subjects, across electrodes within a subject, and over time. 
 
-Although previous work has identified electrode-retina distance and impedance as key
-factors affecting thresholds, an accurate predictive model is still lacking.
+Although previous work has identified electrode-retina distance and impedance as key factors affecting thresholds, an accurate predictive model is still lacking.
 
-The aim of this study is thus to develop a model that can
+To address these challenges, we set out to develop explainable machine learning (ML) models that could:
+- predict perceptual thresholds on individual electrodes as a function of stimulus, electrode, and clinical parameters
+- infer deactivation of individual electrodes as a function of these parameters, and
+- reveal which of these predictors were most important to perceptual thresholds and electrode deactivation
 
-1. predict thresholds on individual electrodes as a function of stimulus, electrode, and clinical parameters (‘predictors’), and
-2. reveal which of these predictors are most important.
+This repository contains the implementation of the work presented in [Explainable Machine Learning Predictions of
+Perceptual Sensitivity for Retinal Prostheses](https://github.com/bionicvisionlab/2023-ArgusThresholds), where these challenges were studied.
 
 ### Installation
 
 ```
-git clone https://github.com/bionicvisionlab/ArgusThresholds.git
-cd ArgusThresholds
+git clone https://github.com/bionicvisionlab/2023-ArgusThresholds.git
+cd 2023-ArgusThresholds
 pip install -e .
 ```
 
-### Getting Started
-
-1. Download the data. Currently it is assumed that all research data lives in a local directory pointed to
-   by the environment variable `$DATA_ROOT`, and that there's a sub-directory called "argus_thresholds"
-   where all the data for this study live.
-   On DeepThought, `$DATA_ROOT` should be set to `/usr/data`.
-
-2. You can use `argus_thresholds.load_data` to load data from all subjects from the various spreadsheets.
-
-3. You can preprocess the data with `argus_thresholds.preprocess_data`. Have a look at the function, it
-   does a number of interesting things to remove electrodes and subjects for which there aren't enough
-   data points.
-   On DeepThought, the preprocessed data is already stored in `/usr/data/argus_thresholds`.
-
-#### Scripts
+### Scripts
 
 Scripts can be found in the `scripts/` folder:
 
-* `python predict-elastic-2020.py <mode> <normalize>`: Hyperparameter tuning for the ElasticNet baseline.
-  Specify a mode to select a subset of feature columns ('original', 'clinical', 'image', etc.) and
-  whether to normalize the data before fitting (1: normalize, 0: don't normalize)
+* `python preprocess-store-data.py <mode> <scale_thresholds> <ignore_outliers> <keep_nans> <min_samples>`: Data preprocessing and feature extraction for downstream classification and regression tasks.
+   * `mode` should be one of ['routine', 'fitting', 'followup']
+   * For classification tasks: 
+      * `ignore_outliers` = False
+      * `keep_nans` = False
+      * `min_samples` = 50
+   * For for regression tasks:
+      * `ignore_outliers` = True
+      * `keep_nans` = False
+      * `min_samples` = 50
+      * `scale_thresholds` = 'first' if and only if `mode` is 'fitting' or 'followup'
+   
+* `python fit-predict-classification-2023.py <mode> <datapath> <model> <standardize> <upsample> <paramsearch> <outpath>`: Model fitting for electrode deactivation classification.
+   * `mode`: one of ['routine', 'fitting', 'followup']
+   * `datapath`: Path to preprocessed data associated with selected mode
+   * `model`: 'logreg' or 'xgb'
+   * `standardize`: Standardize feature values (set to True in all experiments)
+   * `upsample`: Upsample minority class with SMOTE (set to True in all experiments)
+   * `paramsearch`: Set to True to run Bayesian hyperparameter optimization
+   * `outpath`: Path to save trained models and associated artifacts
+   
+* `python fit-predict-regression-2023.py <mode> <datapath> <model> <standardize> <upsample> <paramsearch> <outpath>`: Model fitting for perceptual threshold regression.
+   * `mode`: one of ['routine', 'fitting', 'followup']
+   * `datapath`: Path to preprocessed data associated with selected mode
+   * `model`: 'elasticnet' or 'xgb'
+   * `standardize`: Standardize feature values (set to True in all experiments)
+   * `paramsearch`: Set to True to run Bayesian hyperparameter optimization
+   * `outpath`: Path to save trained models and associated artifacts
 
-* `python predict-tree-2020.py <mode>`: Hyperparameter tuning for XGBoost.
-  Specify a mode as described above.
+### Analyses
 
-### Notes
+Code supporting result analysis and figure generation can be found in the `analysis/` folder:
 
-*  Please work on your own branch or private fork.
-*  Commit early and often. It helps us keep track and provides you with a backup copy of your latest code.
-*  Please don't share the data or put it on Dropbox/Box/Google Drive/etc. We don't have permission for that.
+* `python plot_correlation_heatmap.py`: Plotting feature correlation heatmap (Figure 1).
+* `python plot_spearman_correlations.py`: Plotting feature correlation heatmap (Figure 3).
+* `python plot_features.py`: Scatterplots between features and perceptual thresholds  (Figure 4).
+* `python plot_shap.py`: Plotting top 10 features according to SHAP values (Figure 5).
+* `python plot_threshold_kdes.py`: Plotting threshold KDEs (Appendix Figure 1).
+* `python plot_regression_results.py`: Regression ground-truth vs. prediction scatterplots (Appendix Figures 2, 3).
+  
+  
+## Reference
+[1] Galen Pogoncheff, Zuying Hu, Ariel Rokem, and Michael Beyeler.  Explainable Machine Learning Predictions of Perceptual Sensitivity for Retinal Prostheses.
