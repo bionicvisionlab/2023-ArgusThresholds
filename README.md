@@ -66,6 +66,8 @@ Code supporting result analysis and figure generation can be found in the `analy
 * `python plot_shap.py`: Plotting top 10 features according to SHAP values (Figures 5, 6).
 * `python plot_threshold_kdes.py`: Plotting threshold KDEs (Appendix Figure 1).
 * `python plot_regression_results.py`: Regression ground-truth vs. prediction scatterplots (Appendix Figures 2, 3).
+* `python eval_regression.py`: Runs evaluation of perceptural threshold prediction.
+* `python eval_classification.py`: Runs evaluation of electrode classification deactivation.
   
   
 ## Reference
