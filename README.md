@@ -1,6 +1,11 @@
 ## ArgusThresholds
 
-Predicting Argus II thresholds from a variety of clinical and physiological factors.
+*Predicting Argus II thresholds from a variety of clinical and physiological factors*
+
+Please cite as:
+
+> G Pogoncheff, Z Hu, A Rokem, M Beyeler (2023). Explainable Machine Learning Predictions of Perceptual Sensitivity for Retinal Prostheses. *medRxiv*, doi:[10.1101/2023.02.09.23285633](https://doi.org/10.1101/2023.02.09.23285633)
+
 
 To provide appropriate levels of stimulation, retinal prostheses must be calibrated to an individual’s
 perceptual thresholds, despite thresholds varying drastically across subjects, across electrodes within a subject, and over time. 
@@ -14,6 +19,8 @@ To address these challenges, we set out to develop explainable machine learning 
 
 This repository contains the implementation of the work presented in [Explainable Machine Learning Predictions of
 Perceptual Sensitivity for Retinal Prostheses](https://github.com/bionicvisionlab/2023-ArgusThresholds), where these challenges were studied.
+
+
 
 ### Installation
 
