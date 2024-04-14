@@ -1,4 +1,4 @@
-[![license](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/bionicvisionlab/2024-ArgusPairs/blob/master/LICENSE)
+[![license](https://img.shields.io/badge/License-BSD--2--Clause-blue.svg)](https://github.com/bionicvisionlab/2023-ArgusThresholds/blob/master/LICENSE)
 [![DOI](https://img.shields.io/badge/DOI-10.1088%2F1741--2552%2Fad310f-orange)](https://doi.org/10.1088/1741-2552/ad310f)
 
 # ArgusThresholds
