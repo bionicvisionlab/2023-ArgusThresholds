@@ -1,10 +1,13 @@
-## ArgusThresholds
+[![license](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/bionicvisionlab/2024-ArgusPairs/blob/master/LICENSE)
+[![DOI](https://img.shields.io/badge/DOI-10.1088%2F1741--2552%2Fad310f-orange)](https://doi.org/10.1088/1741-2552/ad310f)
+
+# ArgusThresholds
 
 *Predicting Argus II thresholds from a variety of clinical and physiological factors*
 
 Please cite as:
 
-> G Pogoncheff, Z Hu, A Rokem, M Beyeler (2023). Explainable Machine Learning Predictions of Perceptual Sensitivity for Retinal Prostheses. *medRxiv*, doi:[10.1101/2023.02.09.23285633](https://doi.org/10.1101/2023.02.09.23285633)
+> G Pogoncheff, Z Hu, A Rokem, M Beyeler (2024). Explainable Machine Learning Predictions of Perceptual Sensitivity for Retinal Prostheses. *Journal of Neural Engineering* 21 026009, doi:[10.1088/1741-2552/ad310f](https://doi.org/10.1088/1741-2552/ad310f)
 
 
 To provide appropriate levels of stimulation, retinal prostheses must be calibrated to an individual’s
@@ -17,8 +20,7 @@ To address these challenges, we set out to develop explainable machine learning 
 - infer deactivation of individual electrodes as a function of these parameters, and
 - reveal which of these predictors were most important to perceptual thresholds and electrode deactivation
 
-This repository contains the implementation of the work presented in [Explainable Machine Learning Predictions of
-Perceptual Sensitivity for Retinal Prostheses](https://github.com/bionicvisionlab/2023-ArgusThresholds), where these challenges were studied.
+This repository contains the implementation of the work presented in [Pogoncheff et al. (2024)](https://doi.org/10.1088/1741-2552/ad310f), where these challenges were studied.
 
 
 
